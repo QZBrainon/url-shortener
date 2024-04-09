@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/app/src
+
+  postgresql:
+    image: 'bitnami/postgresql:latest'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=shortlinks
+    ports:
+      - '5432:5432'
+
+  redis:
+    image: 'bitnami/redis:latest'
+    environment:
+      - REDIS_PASSWORD=mypassword
+    ports:
+      - '6379:6379'
+
+volumes:
+  postgresql_data:
+    driver: local
+  redis_data:
+    driver: local
